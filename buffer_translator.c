@@ -31,11 +31,12 @@ return (spaces);
 char **buffer_translator(char *buff)
 {
 char **tokens, *temp_token;
-char *separator = " ";
+char *separator = " \t\n";
 int i = 0;
-int spaces = numberofspaces(buff);
+int spaces;
 
-tokens = malloc(sizeof(char *) * (spaces + 1));
+spaces = numberofspaces(buff);
+tokens = malloc(sizeof(char *) * (spaces + 2));
 if (!tokens)
 {
 fprintf(stderr, "sh: allocation error\n");
@@ -49,7 +50,6 @@ tokens[i++] = temp_token;
 temp_token = strtok(NULL, separator);
 }
 tokens[i] = NULL;
-printf("number of spaces: %d\n", spaces);
 
 return (tokens);
 }

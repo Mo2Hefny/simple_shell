@@ -11,7 +11,7 @@ int main(int argc, char **argv)
 {
 char *buffer;
 char **tokens;
-int response;
+int response, piped = 0;
 size_t buffersize = 1024;
 
 if (argc > 1)
@@ -30,12 +30,18 @@ perror("Unable to allocate buffer");
 exit(1);
 }
 do {
+if (isatty(0))
+{
+piped = 1;
 printf("#cisfun$ ");
-getline(&buffer, &buffersize, stdin);
+}
+if (getline(&buffer, &buffersize, stdin) == -1)
+break;
+buffer[strlen(buffer) - 1] = '\0';
 tokens = buffer_translator(buffer);
-execve(tokens[0], tokens, NULL);
 response = execute(tokens);
-} while (response != -1);
-
+free(tokens);
+} while (piped && response != -1);
+free(buffer);
 return (0);
 }
