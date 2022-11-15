@@ -61,7 +61,7 @@ perror(info.program);
 exit(-1);
 }
 buffer = malloc(buffersize);
-path = get_path();
+path = get_env_variable("PATH");
 paths = buffer_translator(path);
 if (!buffer)
 {

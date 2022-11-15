@@ -30,9 +30,10 @@ int print_env(void);
 void exit_func(char **);
 int set_env(char **);
 int unset_env(char **);
+int change_dir(char **);
 
 /* PATH */
-char *get_path(void);
+char *get_env_variable(char *);
 void check_path(char **, char **);
 char *append_path(char *, char *);
 void free_items(char **, ...);
