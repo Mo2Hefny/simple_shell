@@ -20,6 +20,18 @@ exit(0);
 exit_func(cmd[1]);
 return (1);
 }
+else if (strncmp(cmd[0], "setenv", 6) == 0)
+{
+if (!cmd[1] || !cmd[2])
+{
+fprintf(stderr, "Not enough arguments");
+return (1);
+}
+else
+return (set_env(cmd[1], cmd[2], 1));
+}
+else if (strncmp(cmd[0], "unsetenv", 8) == 0)
+return (unset_env(cmd));
 return (0);
 }
 

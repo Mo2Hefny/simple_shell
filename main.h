@@ -22,5 +22,7 @@ char *get_path(void);
 void check_path(char**, char**);
 char *append_path(char*, char*);
 void free_items(char**, ...);
+int set_env(char*, char*, int);
+int unset_env(char**);
 
 #endif

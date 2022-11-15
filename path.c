@@ -47,7 +47,7 @@ return;
 }
 free(temp);
 }
-execute(NULL, cmd);
+execute(cmd[0], cmd);
 }
 
 /**
