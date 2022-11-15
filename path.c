@@ -1,24 +1,26 @@
 #include "main.h"
 
 /**
- * get_path - gets PATH.
- * Return: PATH
+ * get_env_variable - gets needed environmental value.
+ * @var: variable name.
+ * Return: environmental value.
  */
 
-char *get_path()
+char *get_env_variable(char *var)
 {
 char **env = environ;
 char *temp;
-int i;
+int i, path, len = strlen(var);
+path = strncmp(var, "PATH", 4);
 for (i = 0; env[i]; i++)
 {
-if (strncmp(env[i], "PATH=", 5) == 0)
+if (strncmp(env[i], var, len) == 0)
 {
 temp = env[i];
-for (i = 0; temp[i]; i++)
+for (i = 0; temp[i] && !path; i++)
 if (temp[i] == ':')
 temp[i] = ' ';
-return (temp + 5);
+return (temp + len + 1);
 }
 }
 return (NULL);
