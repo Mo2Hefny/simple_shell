@@ -2,15 +2,18 @@
 
 /**
  * set_env - set environmental variable.
- * @name: variable name
- * @value: variable value
- * @flag: overwrite or not
- * Return: 1
+ * @cmd: tokens
+ * Return: 1 on success.
  */
 
-int set_env(char* name, char* value, int flag)
+int set_env(char **cmd)
 {
-if (setenv(name, value, flag) == -1)
+if (!cmd[1] || !cmd[2])
+{
+fprintf(stderr, "Not enough arguments");
+return (1);
+}
+if (setenv(cmd[1], cmd[2], 1) == -1)
 fprintf(stderr, "No variable declared");
 return (1);
 }
@@ -21,7 +24,7 @@ return (1);
  * Return: 1
  */
 
-int unset_env(char** cmd)
+int unset_env(char **cmd)
 {
 if (!cmd[1])
 fprintf(stderr, "No variable declared");
