@@ -20,6 +20,9 @@ return (set_env(cmd));
 else if (strncmp(cmd[0], "unsetenv", 8) == 0)
 return (unset_env(cmd));
 
+else if (strncmp(cmd[0], "cd", 2) == 0)
+return (change_dir(cmd));
+
 return (0);
 }
 
