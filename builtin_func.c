@@ -2,9 +2,10 @@
 
 /**
  * print_env - print environmental variables.
+ * Return: 1 on success.
  */
 
-void print_env(void)
+int print_env(void)
 {
 char **env = environ;
 int i;
@@ -12,18 +13,21 @@ for (i = 0; env[i]; i++)
 {
 printf("%s\n", env[i]);
 }
+return (1);
 }
 
 /**
  * exit_func - exit shell
- * @number: number to exit the shell with
+ * @cmd: tokens
  */
 
-void exit_func(char *number)
+void exit_func(char **cmd)
 {
-int n = atoi(number);
-if (number == NULL)
+int n;
+
+if (cmd[1] == NULL)
 exit(0);
-else
+
+n = atoi(cmd[1]);
 exit(n);
 }
