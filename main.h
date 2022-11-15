@@ -11,18 +11,44 @@
 
 extern char **environ;
 
+/* Write functions */
+void _puts(char *str);
+int _putchar(char c);
+
+/* SHELL */
+void shell_interact(char *buff, char **paths, size_t size);
+int execute(char *, char **command);
+
+/* Tokenizer */
 char **buffer_translator(char *buff);
 int numberofspaces(char *buff);
-int execute(char *, char **command);
+
+/* BUILD-IN */
 int check_builtin(char **);
 int handle_builtin(char **);
-void print_env();
-void exit_func(char *);
+int print_env(void);
+void exit_func(char **);
+int set_env(char **);
+int unset_env(char **);
+
+/* PATH */
 char *get_path(void);
-void check_path(char**, char**);
-char *append_path(char*, char*);
-void free_items(char**, ...);
-int set_env(char*, char*, int);
-int unset_env(char**);
+void check_path(char **, char **);
+char *append_path(char *, char *);
+void free_items(char **, ...);
+
+/**
+ * struct info - carries main information of program
+ * @program: program name.
+ * @linecount: number of lines in buffer.
+ */
+
+struct info
+{
+char *program;
+int linecount;
+};
+
+typedef struct info info_t;
 
 #endif
