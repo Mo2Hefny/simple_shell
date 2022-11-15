@@ -13,6 +13,14 @@ extern char **environ;
 
 char **buffer_translator(char *buff);
 int numberofspaces(char *buff);
-int execute(char **command);
+int execute(char *, char **command);
+int check_builtin(char **);
+int handle_builtin(char **);
+void print_env();
+void exit_func(char *);
+char *get_path(void);
+void check_path(char**, char**);
+char *append_path(char*, char*);
+void free_items(char**, ...);
 
 #endif

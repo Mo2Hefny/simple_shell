@@ -35,6 +35,8 @@ char *separator = " \t\n";
 int i = 0;
 int spaces;
 
+if (!buff)
+return (NULL);
 spaces = numberofspaces(buff);
 tokens = malloc(sizeof(char *) * (spaces + 2));
 if (!tokens)
