@@ -15,7 +15,7 @@ int piped = 0;
 do {
 if (isatty(0))
 {
-_puts("#cisfun$ ");
+_puts("$ ");
 piped = 1;
 }
 
