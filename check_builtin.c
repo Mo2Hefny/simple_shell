@@ -12,7 +12,7 @@ if (strncmp(cmd[0], "env", 3) == 0)
 return (print_env());
 
 else if (strncmp(cmd[0], "exit", 4) == 0)
-exit_func(cmd);
+return (-1);
 
 else if (strncmp(cmd[0], "setenv", 6) == 0)
 return (set_env(cmd));
@@ -34,13 +34,18 @@ return (0);
 
 int check_builtin(char **cmd)
 {
-if (handle_builtin(cmd))
+int n = handle_builtin(cmd);
+if (n != 0)
 {
+if (n == -1)
+return (-1);
+free(cmd);
 return (1);
 }
 else if (cmd[0][0] == '/')
 {
 execute(cmd[0], cmd);
+free(cmd);
 return (1);
 }
 return (0);

@@ -10,10 +10,9 @@
 void shell_interact(char *buffer, char **paths, size_t buffsize)
 {
 char **tokens = NULL;
-int piped = 1;
+int piped = 1, builtin;
 
 do {
-free_item(tokens);
 if ((isatty(STDIN_FILENO) == 1) && (isatty(STDOUT_FILENO) == 1))
 {
 _puts("$ ");
@@ -31,10 +30,20 @@ tokens = buffer_translator(buffer);
 if (tokens == NULL || *tokens == NULL || **tokens == '\0')
 continue;
 /* checks build-ins and frees tokens before recursion */
-if (check_builtin(tokens))
+builtin = check_builtin(tokens);
+if (builtin != 0)
+{
+if (builtin == -1)
+{
+free(buffer);
+free(paths);
+exit_func(tokens);
+}
 continue;
+}
 
 check_path(paths, tokens);
+free(tokens);
 } while (piped);
 
 free(buffer);
@@ -50,7 +59,7 @@ free(paths);
 
 int main(int argc, char **argv)
 {
-char *path, *buffer, **paths;
+char *path = NULL, *buffer, **paths;
 size_t buffersize = 1024;
 info_t info;
 info.program = argv[0];
@@ -62,11 +71,12 @@ if (execve(argv[1], argv, environ) == -1)
 perror(info.program);
 exit(-1);
 }
-path = get_env_variable("PATH");
-paths = buffer_translator(path);
+
 buffer = malloc(buffersize);
 path = get_env_variable("PATH");
+path = separate_path(path);
 paths = buffer_translator(path);
+free(path);
 if (!buffer)
 {
 perror("Unable to allocate buffer");

@@ -40,7 +40,7 @@ exit(n);
 
 int change_dir(char **cmd)
 {
-char *prev, *current;
+char *prev = NULL, *current = NULL;
 
 prev = get_env_variable("PWD");
 
@@ -48,6 +48,7 @@ if (!cmd[1])
 {
 if (chdir("/root") == -1)
 {
+free(prev);
 perror("Error ~");
 return (1);
 }
@@ -58,6 +59,8 @@ else if (cmd[1][0] == '-')
 current = get_env_variable("OLDPWD");
 if (chdir(current) == -1)
 {
+free(prev);
+free(current);
 perror("Error -");
 return (1);
 }
@@ -66,6 +69,8 @@ else
 {
 if (chdir(cmd[1]) == -1)
 {
+free(prev);
+free(current);
 perror("Error cd");
 return (1);
 }
@@ -75,6 +80,8 @@ if (current)
 {
 setenv("PWD", current, 1);
 setenv("OLDPWD", prev, 1);
+free(current);
 }
+free(prev);
 return (1);
 }

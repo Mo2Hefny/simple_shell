@@ -10,16 +10,12 @@ char *get_env_variable(char *var)
 {
 char **env = environ;
 char *temp;
-int i, path, len = strlen(var);
-path = strncmp(var, "PATH", 4);
+int i, len = strlen(var);
 for (i = 0; env[i]; i++)
 {
 if (strncmp(env[i], var, len) == 0)
 {
 temp = env[i];
-for (i = 0; temp[i] && !path; i++)
-if (temp[i] == ':')
-temp[i] = ' ';
 return (temp + len + 1);
 }
 }
@@ -82,4 +78,24 @@ buff[i + j] = cmd[j];
 buff[i + j] = '\0';
 
 return (buff);
+}
+
+/**
+ * separate_path - separate PATH.
+ * @path: PATH.
+ * Return: separeated PATH.
+ */
+
+char *separate_path(char *path)
+{
+size_t i;
+char *temp;
+temp = malloc(strlen(path));
+for (i = 0; i < strlen(path); i++)
+{
+temp[i] = path[i];
+if (temp[i] == ':')
+temp[i] = ' ';
+}
+return (temp);
 }

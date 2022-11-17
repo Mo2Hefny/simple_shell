@@ -35,6 +35,7 @@ int iscomment(char *);
 
 /* PATH */
 char *get_env_variable(char *);
+char *separate_path(char *);
 void check_path(char **, char **);
 char *append_path(char *, char *);
 
