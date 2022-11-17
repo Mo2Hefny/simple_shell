@@ -23,7 +23,7 @@ if (getline(&buffer, &buffsize, stdin) == -1)
 write(STDERR_FILENO, "\n", 1);
 break;
 }
-if (buffer[strlen(buffer) - 1] == '\n')
+
 buffer[strlen(buffer) - 1] = '\0';
 
 tokens = buffer_translator(buffer);
@@ -59,7 +59,7 @@ free(paths);
 
 int main(int argc, char **argv)
 {
-char *path = NULL, *buffer, **paths;
+char *path = NULL, *spaced = NULL, *buffer, **paths;
 size_t buffersize = 1024;
 info_t info;
 info.program = argv[0];
@@ -74,9 +74,10 @@ exit(-1);
 
 buffer = malloc(buffersize);
 path = get_env_variable("PATH");
-path = separate_path(path);
-paths = buffer_translator(path);
-free(path);
+spaced = strdup(path);
+spaced = separate_path(spaced);
+paths = buffer_translator(spaced);
+free(spaced);
 if (!buffer)
 {
 perror("Unable to allocate buffer");

@@ -89,13 +89,9 @@ return (buff);
 char *separate_path(char *path)
 {
 size_t i;
-char *temp;
-temp = malloc(strlen(path));
 for (i = 0; i < strlen(path); i++)
-{
-temp[i] = path[i];
-if (temp[i] == ':')
-temp[i] = ' ';
-}
-return (temp);
+if (path[i] == ':')
+path[i] = ' ';
+
+return (path);
 }

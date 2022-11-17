@@ -30,7 +30,7 @@ return (spaces);
 
 char **buffer_translator(char *buff)
 {
-char **tokens, *temp_token;
+char **tokens = NULL, *temp_token;
 char *separator = " \t\n";
 int i = 0;
 int spaces;
@@ -48,6 +48,8 @@ exit(1);
 temp_token = strtok(buff, separator);
 while (temp_token)
 {
+if (temp_token[0] == '#' || temp_token[1] == '#')
+break;
 tokens[i++] = temp_token;
 temp_token = strtok(NULL, separator);
 }
