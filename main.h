@@ -21,7 +21,7 @@ int execute(char *, char **command);
 
 /* Tokenizer */
 char **buffer_translator(char *buff);
-int numberofspaces(char *buff);
+int numberofspaces(char *buff, char *sep);
 
 /* BUILD-IN */
 int check_builtin(char **);

@@ -4,18 +4,24 @@
  * numberofspaces - check number of spaces in buffer to
  * allocate the array of token strings.
  * @buff: buffer
+ * @sep: separators.
  * Return: number of spaces;
  */
 
-int numberofspaces(char *buff)
+int numberofspaces(char *buff, char *sep)
 {
-int i, spaces = 0;
-
-for (i = 0; buff[i]; i++)
+int flag = 0, spaces = 0;
+char *buf = buff;
+while (*buf)
 {
-
-if (buff[i] == ' ')
+if (strchr(sep, *buf) && flag == 0)
+{
 spaces++;
+flag = 1;
+}
+else if (strchr(sep, *buf) == NULL && flag == 1)
+flag = 0;
+buf++;
 }
 
 return (spaces);
@@ -31,13 +37,13 @@ return (spaces);
 char **buffer_translator(char *buff)
 {
 char **tokens = NULL, *temp_token;
-char *separator = " \t\n";
+char *separator = " \t\n:";
 int i = 0;
 int spaces;
 
 if (!buff)
 return (NULL);
-spaces = numberofspaces(buff);
+spaces = numberofspaces(buff, separator);
 tokens = malloc(sizeof(char *) * (spaces + 2));
 if (!tokens)
 {
