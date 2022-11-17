@@ -3,7 +3,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <errno.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
@@ -11,7 +10,6 @@
 #include <string.h>
 
 extern char **environ;
-extern int errno;
 
 /* Write functions */
 void _puts(char *str);

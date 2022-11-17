@@ -28,7 +28,7 @@ int n;
 if (cmd[1] == NULL)
 {
 free(cmd);
-exit(errno);
+exit(0);
 }
 
 n = atoi(cmd[1]);
