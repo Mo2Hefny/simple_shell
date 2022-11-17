@@ -36,13 +36,11 @@ int check_builtin(char **cmd)
 {
 if (handle_builtin(cmd))
 {
-free(cmd);
 return (1);
 }
 else if (cmd[0][0] == '/')
 {
 execute(cmd[0], cmd);
-free(cmd);
 return (1);
 }
 return (0);

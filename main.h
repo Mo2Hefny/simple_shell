@@ -16,7 +16,7 @@ void _puts(char *str);
 int _putchar(char c);
 
 /* SHELL */
-void shell_interact(char *buff, char **paths, size_t size);
+void shell_interact(char *buffer, char **paths, size_t size);
 int execute(char *, char **command);
 
 /* Tokenizer */
@@ -31,12 +31,15 @@ void exit_func(char **);
 int set_env(char **);
 int unset_env(char **);
 int change_dir(char **);
+int iscomment(char *);
 
 /* PATH */
 char *get_env_variable(char *);
 void check_path(char **, char **);
 char *append_path(char *, char *);
-void free_items(char **, ...);
+
+/*memory*/
+void free_item(char **);
 
 /**
  * struct info - carries main information of program
