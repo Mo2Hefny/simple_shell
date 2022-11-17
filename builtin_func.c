@@ -26,9 +26,13 @@ void exit_func(char **cmd)
 int n;
 
 if (cmd[1] == NULL)
+{
+free(cmd);
 exit(0);
+}
 
 n = atoi(cmd[1]);
+free(cmd);
 exit(n);
 }
 
