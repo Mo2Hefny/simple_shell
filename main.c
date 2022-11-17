@@ -58,7 +58,7 @@ free(paths);
 
 int main(int argc, char **argv)
 {
-char *pathcpy = NULL, *path = NULL, *buffer = NULL, **paths = NULL;
+char *path = NULL, *buffer = NULL, **paths = NULL;
 size_t buffersize = 1024;
 info_t info;
 info.program = argv[0];
@@ -73,11 +73,7 @@ exit(-1);
 
 buffer = malloc(buffersize);
 path = get_env_variable("PATH");
-pathcpy = malloc(strlen(path) + 1);
-pathcpy = strcpy(pathcpy, path);
 paths = buffer_translator(path);
-setenv("PATH", pathcpy, 1);
-free(pathcpy);
 if (!buffer)
 {
 perror("Unable to allocate buffer");
