@@ -19,16 +19,20 @@ return (1);
 /**
  * exit_func - exit shell
  * @cmd: tokens
+ * @ex: exit code.
  */
 
-void exit_func(char **cmd)
+void exit_func(char **cmd, int ex)
 {
 int n;
 
 if (cmd[1] == NULL)
 {
 free(cmd);
+if (ex == 1)
 exit(0);
+else
+exit(2);
 }
 
 n = atoi(cmd[1]);

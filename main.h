@@ -27,7 +27,7 @@ int numberofspaces(char *buff);
 int check_builtin(char **);
 int handle_builtin(char **);
 int print_env(void);
-void exit_func(char **);
+void exit_func(char **, int ex);
 int set_env(char **);
 int unset_env(char **);
 int change_dir(char **);

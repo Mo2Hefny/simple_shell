@@ -16,7 +16,6 @@ do {
 if ((isatty(STDIN_FILENO) == 1) && (isatty(STDOUT_FILENO) == 1))
 {
 _puts("$ ");
-piped = 1;
 }
 if (getline(&buffer, &buffsize, stdin) == -1)
 {
@@ -37,11 +36,11 @@ if (builtin == -1)
 {
 free(buffer);
 free(paths);
-exit_func(tokens);
+exit_func(tokens, piped);
 }
 continue;
 }
-
+piped++;
 check_path(paths, tokens);
 free(tokens);
 } while (piped);
