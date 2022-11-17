@@ -25,14 +25,12 @@ return (1);
 void exit_func(char **cmd, int ex)
 {
 int n;
+(void)ex;
 
 if (cmd[1] == NULL)
 {
 free(cmd);
-if (ex == 1)
 exit(0);
-else
-exit(2);
 }
 
 n = atoi(cmd[1]);
