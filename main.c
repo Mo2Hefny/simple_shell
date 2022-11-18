@@ -29,7 +29,7 @@ buffer[strlen(buffer) - 1] = '\0';
 tokens = buffer_translator(buffer);
 
 /* checks build-ins and frees tokens before recursion */
-if (check_builtin(tokens))
+if (check_builtin(tokens, buffer))
 continue;
 
 check_path(paths, tokens);
