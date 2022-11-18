@@ -2,17 +2,18 @@
 
 /**
  * handle_builtin - handle built in commands.
- * @cmd: commands array
+ * @cmd: commands array.
+ * @buff: buffer.
  * Return: 1 if found command, 0 otherwise.
  */
 
-int handle_builtin(char **cmd)
+int handle_builtin(char **cmd, char *buff)
 {
 if (strncmp(cmd[0], "env", 3) == 0)
 return (print_env());
 
 else if (strncmp(cmd[0], "exit", 4) == 0)
-return (-1);
+exit_func(cmd, buff);
 
 else if (strncmp(cmd[0], "setenv", 6) == 0)
 return (set_env(cmd));
@@ -29,16 +30,14 @@ return (0);
 /**
  * check_builtin - checks for built in commands.
  * @cmd: commands array.
+ * @buff: buffer.
  * Return: 1 if found built in command, 0 other wise.
  */
 
-int check_builtin(char **cmd)
+int check_builtin(char **cmd, char *buff)
 {
-int n = handle_builtin(cmd);
-if (n != 0)
+if (handle_builtin(cmd, buff))
 {
-if (n == -1)
-return (-1);
 free(cmd);
 return (1);
 }

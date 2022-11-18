@@ -16,31 +16,27 @@ void _puts(char *str);
 int _putchar(char c);
 
 /* SHELL */
-void shell_interact(char *buffer, char **paths, size_t size);
+void shell_interact(char *buff, char **paths, size_t size);
 int execute(char *, char **command);
 
 /* Tokenizer */
 char **buffer_translator(char *buff);
-int numberofspaces(char *buff, char *sep);
+int numberofspaces(char *buff);
 
 /* BUILD-IN */
-int check_builtin(char **);
-int handle_builtin(char **);
+int check_builtin(char **, char *);
+int handle_builtin(char **, char *);
 int print_env(void);
-void exit_func(char **, int ex);
+void exit_func(char **, char *);
 int set_env(char **);
 int unset_env(char **);
 int change_dir(char **);
-int iscomment(char *);
 
 /* PATH */
 char *get_env_variable(char *);
-char *separate_path(char *);
 void check_path(char **, char **);
 char *append_path(char *, char *);
-
-/*memory*/
-void free_item(char **);
+void free_items(char **, ...);
 
 /**
  * struct info - carries main information of program

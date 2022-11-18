@@ -18,23 +18,24 @@ return (1);
 
 /**
  * exit_func - exit shell
- * @cmd: tokens
- * @ex: exit code.
+ * @cmd: tokens.
+ * @buff: buffer.
  */
 
-void exit_func(char **cmd, int ex)
+void exit_func(char **cmd, char *buff)
 {
 int n;
-(void)ex;
 
 if (cmd[1] == NULL)
 {
 free(cmd);
+free(buff);
 exit(0);
 }
 
 n = atoi(cmd[1]);
 free(cmd);
+free(buff);
 exit(n);
 }
 
@@ -46,7 +47,7 @@ exit(n);
 
 int change_dir(char **cmd)
 {
-char *prev = NULL, *current = NULL;
+char *prev, *current;
 
 prev = get_env_variable("PWD");
 

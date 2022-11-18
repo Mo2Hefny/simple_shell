@@ -9,42 +9,32 @@
 
 void shell_interact(char *buffer, char **paths, size_t buffsize)
 {
-char **tokens = NULL;
-int piped = 1, builtin;
+char **tokens;
+int piped = 1;
 
 do {
-if ((isatty(STDIN_FILENO) == 1) && (isatty(STDOUT_FILENO) == 1))
+if (isatty(0))
 {
-_puts("$ ");
+_puts("#cisfun$ ");
+piped = 1;
 }
+
 if (getline(&buffer, &buffsize, stdin) == -1)
 {
-write(STDERR_FILENO, "\n", 1);
+_putchar('\n');
 break;
 }
 
 buffer[strlen(buffer) - 1] = '\0';
-
 tokens = buffer_translator(buffer);
-if (tokens == NULL || *tokens == NULL || **tokens == '\0')
-continue;
+
 /* checks build-ins and frees tokens before recursion */
-builtin = check_builtin(tokens);
-if (builtin != 0)
-{
-if (builtin == -1)
-{
-free(buffer);
-free(paths);
-exit_func(tokens, piped);
-}
+if (check_builtin(tokens))
 continue;
-}
-piped++;
+
 check_path(paths, tokens);
 free(tokens);
 } while (piped);
-
 free(buffer);
 free(paths);
 }
@@ -58,7 +48,7 @@ free(paths);
 
 int main(int argc, char **argv)
 {
-char *pathcpy = NULL, *path = NULL, *buffer = NULL, **paths = NULL;
+char *buffer, *path, **paths;
 size_t buffersize = 1024;
 info_t info;
 info.program = argv[0];
@@ -70,14 +60,9 @@ if (execve(argv[1], argv, environ) == -1)
 perror(info.program);
 exit(-1);
 }
-
 buffer = malloc(buffersize);
 path = get_env_variable("PATH");
-pathcpy = malloc(strlen(path) + 1);
-pathcpy = strcpy(pathcpy, path);
 paths = buffer_translator(path);
-setenv("PATH", pathcpy, 1);
-free(pathcpy);
 if (!buffer)
 {
 perror("Unable to allocate buffer");
