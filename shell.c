@@ -10,11 +10,13 @@
 void shell_interact(char *buffer, char **paths, size_t buffsize)
 {
 char **tokens;
+int piped = 0;
 
 do {
-if (isatty(0))
+if ((isatty(STDIN_FILENO) == 1) && (isatty(STDOUT_FILENO) == 1))
 {
 _puts("$ ");
+piped = 1;
 }
 
 if (getline(&buffer, &buffsize, stdin) == -1)
@@ -32,7 +34,7 @@ continue;
 
 check_path(paths, tokens);
 free(tokens);
-} while (1);
+} while (piped);
 free(buffer);
 free(paths);
 }
