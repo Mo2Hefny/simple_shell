@@ -10,12 +10,14 @@
 #include <string.h>
 
 extern char **environ;
+extern __sighandler_t signal(int __sig, __sighandler_t __handler);
 
 /* Write functions */
 void _puts(char *str);
 int _putchar(char c);
 
 /* SHELL */
+void handle_signal(int m);
 void shell_interact(char *buff, char **paths, size_t size);
 int execute(char *, char **command);
 

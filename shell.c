@@ -54,6 +54,8 @@ info_t info;
 info.program = argv[0];
 info.linecount = 0;
 
+signal(SIGINT, handle_signal);
+
 if (argc > 1)
 if (execve(argv[1], argv, environ) == -1)
 {
