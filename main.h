@@ -24,10 +24,10 @@ char **buffer_translator(char *buff);
 int numberofspaces(char *buff);
 
 /* BUILD-IN */
-int check_builtin(char **, char *);
-int handle_builtin(char **, char *);
+int check_builtin(char **);
+int handle_builtin(char **);
 int print_env(void);
-void exit_func(char **, char *);
+void exit_func(char **);
 int set_env(char **);
 int unset_env(char **);
 int change_dir(char **);
