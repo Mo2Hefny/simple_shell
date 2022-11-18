@@ -10,7 +10,7 @@
 void shell_interact(char *buffer, char **paths, size_t buffsize)
 {
 char **tokens;
-int piped = 0;
+int piped = 1;
 
 do {
 if (isatty(0))
